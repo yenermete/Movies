@@ -1,0 +1,35 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <br/>
+    <h:head>
+        <title><ui:insert name="title"/> </title>
+        <meta name="viewport" content="width=device-width"/>
+        <h:outputStylesheet name="css/movies.css"/>
+    </h:head>
+
+    <h:body>
+
+        <p:ajaxStatus onstart="PF('loading').show();" onsuccess="PF('loading').hide();"/>
+
+        <p:dialog modal="true" widgetVar="loading" header="Loading" draggable="false" closable="false">
+            <p:graphicImage value="/resources/images/ajax-loader.gif" />
+        </p:dialog> 
+
+        <h:panelGrid columns="3">
+            <h:outputLink value="#{request.contextPath}/pages/actors.faces" styleClass="anchorClass">
+                <h:outputText value="Actors"/>
+            </h:outputLink>
+            <h:outputLink value="#{request.contextPath}/pages/directors.faces" styleClass="anchorClass">
+                <h:outputText value="Directors"/>
+            </h:outputLink>
+            <h:outputLink value="#{request.contextPath}/pages/movies.faces" styleClass="anchorClass">
+                <h:outputText value="Movies"/>
+            </h:outputLink>
+        </h:panelGrid>
+    </h:body>
+</html>
+

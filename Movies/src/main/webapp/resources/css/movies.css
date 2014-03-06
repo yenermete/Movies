@@ -1,0 +1,84 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 4, 2014, 19:02:56 AM
+    Author     : Yener
+*/
+.anchorClass {
+    background-color: #2554C7;
+    font-weight: bold;
+    font-size: 20px;
+    border : #2B547E;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.ui-datatable.borderless table thead tr {
+    display: none;
+}
+.ui-datatable.bigTable table {
+    width: 1000px;
+}
+
+.ui-datatable.mediumTable table {
+    width: 800px;
+}
+
+.ui-datatable.smallTable table {
+    width: 400px;
+}
+
+.ui-datatable.miniTable table {
+    width: 200px;
+}
+
+.ui-datatable-odd.colorlessRow,
+.ui-datatable-even.colorlessRow{
+    background-color: #FFFFFF;
+}
+
+.ui-datatable-odd.paleBlueRow,
+.ui-datatable-even.paleBlueRow{
+    background-color: #F0FFFF;
+}
+
+.ui-datatable-odd.paleGreenRow,
+.ui-datatable-even.paleGreenRow{
+    background-color: #C3FDB8;
+}
+
+.ui-datatable.borderless table thead tr,
+.ui-datatable.borderless thead th,
+.ui-datatable.borderless tbody,
+.ui-datatable.borderless tbody tr,
+.ui-datatable.borderless tbody td {
+    border-style: none;
+}
+
+.ui-state-default.smallColumn {
+    width: 150px !important;
+}
+
+.ui-state-default.dateColumn {
+    width: 80px !important;
+}
+
+.ui-state-default.mediumColumn {
+    width: 250px !important;
+}
+
+.ui-state-default.bigColumn {
+    width: 400px !important;
+}
+
+.ui-outputLabel.marginRight {
+    margin-right: 10%;
+}
+
+.ui-paginator{
+    width: 1000px !important;
+}
+

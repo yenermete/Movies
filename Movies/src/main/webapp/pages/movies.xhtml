@@ -1,0 +1,98 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title><ui:define name="title"/></title>
+    </h:head>
+    <h:body>
+
+        <h:form prependId="false" id="form">
+
+            <ui:include src="/pages/template/template.xhtml">
+                <ui:define name="title"><h:outputText value="Movies"/></ui:define>
+            </ui:include>
+
+            <p:dataTable value="#{movieDetailBean.movies}" var="movie" styleClass="bigTable" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{movie.id}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15" rowStyleClass="colorlessRow">
+
+                <p:column styleClass="mediumColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Title"/>
+                    </f:facet>
+
+                    <h:outputText value="#{movie.title}"/>
+                </p:column>
+
+                <p:column styleClass="dateColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Release Date"/>
+                    </f:facet>
+
+                    <h:outputText value="#{movie.releaseDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column styleClass="smallColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Director(s)"/>
+                    </f:facet>
+
+                    <p:dataTable value="#{movie.directorsList}" var="director" styleClass="borderless miniTable"
+                                 rowStyleClass="colorlessRow">
+
+                        <p:column>
+
+                            <p:commandLink value="#{director.fullName}" action="#{movieDetailBean.goToPersonDetail}">
+                                <f:setPropertyActionListener value="#{director.id}" target="#{movieDetailBean.chosenPersonId}"/>
+                                <f:setPropertyActionListener value="#{movieDetailBean.director}" target="#{movieDetailBean.personType}"/>
+                            </p:commandLink>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:column>
+
+                <p:column styleClass="smallColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Actors"/>
+                    </f:facet>
+
+                    <p:dataTable value="#{movie.actorsList}" var="actor" styleClass="borderless miniTable"
+                                 rowStyleClass="paleBlueRow">
+
+                        <p:column>
+
+                            <p:commandLink value="#{actor.fullName}" action="#{movieDetailBean.goToPersonDetail}">
+                                <f:setPropertyActionListener value="#{actor.id}" target="#{movieDetailBean.chosenPersonId}"/>
+                                <f:setPropertyActionListener value="#{movieDetailBean.actor}" target="#{movieDetailBean.personType}"/>
+                            </p:commandLink>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:column>
+
+                <p:column styleClass="smallColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Genre"/>
+                    </f:facet>
+
+                    <p:dataTable value="#{movie.genresList}" var="genre" styleClass="borderless miniTable"
+                                 rowStyleClass="paleGreenRow">
+
+                        <p:column>
+
+                            <h:outputText value="#{genre.genreName}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,73 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+        
+    <tx:annotation-driven transaction-manager="txManager"/>
+        
+    <context:annotation-config/>
+        
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+     
+    <!--    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>-->
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+    
+    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="persistenceUnit" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceProviderClass" value="org.hibernate.ejb.HibernatePersistence"/>
+        <property name="packagesToScan">
+            <list>
+                <value>com.movies.entities</value>
+                <value>com.movies.entities.lut</value>
+            </list>
+        </property>
+        <property name="jpaProperties">
+            <value>
+                hibernate.format_sql=true
+                hibernate.show_sql=true
+            </value>
+        </property>
+    </bean>
+    
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:SportsDb"/>
+        <property name="username" value="yener"/>
+        <property name="password" value="yener"/>
+    </bean>
+
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="emf"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+    <bean id="movieService" class="com.movies.service.impl.MovieServiceImpl" >
+        <property name="baseDao" ref="baseDao"/>
+    </bean>
+
+    <bean id="actorService" class="com.movies.service.impl.ActorServiceImpl" >
+        <property name="baseDao" ref="baseDao"/>
+    </bean>
+        
+    <bean id="directorService" class="com.movies.service.impl.DirectorServiceImpl" >
+        <property name="baseDao" ref="baseDao"/>
+    </bean>
+    
+    <bean id="generalService" class="com.movies.service.impl.GeneralServiceImpl" >
+        <property name="baseDao" ref="baseDao"/>
+    </bean>
+        
+    <bean id="baseDao" class="com.movies.dao.impl.BaseDaoImpl">
+        <property name="emf" ref="emf"/>
+    </bean>
+	
+</beans>
