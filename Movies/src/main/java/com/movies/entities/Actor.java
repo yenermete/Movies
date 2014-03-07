@@ -31,11 +31,11 @@ import javax.persistence.Table;
         name = "sequence_person",
         sequenceName = "SEQ_PERSON")
 @NamedQueries({
-        @NamedQuery(name = QueryNames.GET_ACTOR_BY_ID, query = "select a from Actor a join fetch a.country join fetch a.movies where a.id = :id"),
-        @NamedQuery(name = QueryNames.GET_ACTOR_WITH_MOVIES, query = "select a from Actor a join fetch a.movies where a.id = :id"),
+        @NamedQuery(name = QueryNames.GET_ACTOR_BY_ID, query = "select a from Actor a join fetch a.country left join fetch a.movies where a.id = :id"),
+        @NamedQuery(name = QueryNames.GET_ACTOR_WITH_MOVIES, query = "select a from Actor a left join fetch a.movies where a.id = :id"),
         @NamedQuery(name = QueryNames.GET_ALL_ACTORS, query = "select a from Actor a join fetch a.country"),
         @NamedQuery(name = QueryNames.GET_ACTOR_BY_SIMILAR_NAME, query = "select a from Actor a join fetch a.country where a.name like '%:name%' or a.surname like '%name%'"),
-        @NamedQuery(name = QueryNames.GET_ALL_ACTORS_WITH_MOVIES, query = "select a from Actor a join fetch a.country join fetch a.movies")})
+        @NamedQuery(name = QueryNames.GET_ALL_ACTORS_WITH_MOVIES, query = "select a from Actor a join fetch a.country left join fetch a.movies")})
 public class Actor extends Person implements Serializable {
 
     @Id

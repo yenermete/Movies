@@ -45,8 +45,8 @@ public class DirectorServiceImpl implements DirectorService {
     }
     
     @Override
-    public void saveDirector(Director director) {
-        baseDao.mergeEntity(director);
+    public Director saveDirector(Director director) {
+        return baseDao.mergeEntity(director);
     }
     
     @Override

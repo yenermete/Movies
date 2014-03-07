@@ -31,10 +31,10 @@ import javax.persistence.Table;
         name = "sequence_person",
         sequenceName = "SEQ_PERSON")
 @NamedQueries({
-        @NamedQuery(name = QueryNames.GET_DIRECTOR_BY_ID, query = "select d from Director d join fetch d.country join fetch d.movies where d.id = :id"),
+        @NamedQuery(name = QueryNames.GET_DIRECTOR_BY_ID, query = "select d from Director d join fetch d.country left join fetch d.movies where d.id = :id"),
         @NamedQuery(name = QueryNames.GET_ALL_DIRECTORS, query = "from Director"),
-        @NamedQuery(name = QueryNames.GET_ALL_DIRECTORS_WITH_MOVIES, query = "select distinct d from Director d join fetch d.movies join fetch d.country"),
-        @NamedQuery(name = QueryNames.GET_DIRECTORS_BY_SIMILAR_NAME, query = "select distinct d from Director d join fetch d.movies join fetch d.country where d.name like '%:name%' or d.surname like '%name%'")})
+        @NamedQuery(name = QueryNames.GET_ALL_DIRECTORS_WITH_MOVIES, query = "select distinct d from Director d left join fetch d.movies join fetch d.country"),
+        @NamedQuery(name = QueryNames.GET_DIRECTORS_BY_SIMILAR_NAME, query = "select distinct d from Director d left join fetch d.movies join fetch d.country where d.name like '%:name%' or d.surname like '%name%'")})
 public class Director extends Person implements Serializable {
 
     @Id

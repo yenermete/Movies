@@ -24,7 +24,7 @@ public interface DirectorService {
 
     public Director getDirectorWithMovies(Integer directorId);
 
-    public void saveDirector(Director director);
+    public Director saveDirector(Director director);
 
     public void updateDirector(Director director);
 }

@@ -13,5 +13,10 @@
             <supported-locale>en</supported-locale>        
             <supported-locale>ru</supported-locale>         
         </locale-config>
+        
+        <converter>
+            <converter-for-class>com.movies.entities.lut.Country</converter-for-class>
+            <converter-class>com.movies.jsf.converter.EntityConverter</converter-class>
+        </converter>
     </application>
 </faces-config>

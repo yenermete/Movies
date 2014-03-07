@@ -16,6 +16,14 @@ and open the template in the editor.
     text-decoration: none;
 }
 
+.ui-panel-titlebar.newPersonPanel,
+.ui-widget-header.newPersonPanel,
+.ui-helper-clearfix.newPersonPanel,
+.ui-corner-all.newPersonPanel {
+    width: 400px;
+    margin-bottom: 20px;
+}
+
 .ui-datatable.borderless table thead tr {
     display: none;
 }

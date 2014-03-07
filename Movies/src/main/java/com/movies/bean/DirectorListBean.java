@@ -59,8 +59,8 @@ public class DirectorListBean extends PersonBean implements Serializable {
     }
 
     @Override
-    public void savePerson(Person person) {
-        directorService.saveDirector((Director) person);
+    public Director savePerson(Person person) {
+        return directorService.saveDirector((Director) person);
     }
 
     @Override
@@ -82,7 +82,8 @@ public class DirectorListBean extends PersonBean implements Serializable {
     public void saveDirector(ActionEvent event) {
         try {
             if (MovieUtil.okToSave(getNewPerson())) {
-                savePerson(getNewPerson());
+                setNewPerson(savePerson(getNewPerson()));
+                directors = Arrays.asList((Director) getNewPerson());
                 JsfUtil.addSuccessMessage("Save successfull");
             } else {
                 JsfUtil.addErrorMessage("Fill mandatory fields.");
@@ -99,6 +100,18 @@ public class DirectorListBean extends PersonBean implements Serializable {
 
     public void setDirectorService(DirectorService directorService) {
         this.directorService = directorService;
+    }
+
+    @Override
+    public void initCreate(ActionEvent event) {
+        setCreateUserMode(true);
+        setNewPerson(new Director());
+    }
+
+    @Override
+    public void cancelCreatePerson(ActionEvent event) {
+        setCreateUserMode(false);
+        setNewPerson(null);
     }
     
 }

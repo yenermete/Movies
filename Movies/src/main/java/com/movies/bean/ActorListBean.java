@@ -66,15 +66,16 @@ public class ActorListBean extends PersonBean implements Serializable {
     }
 
     @Override
-    public void savePerson(Person person) {
-        actorService.saveActor((Actor) person);
+    public Actor savePerson(Person person) {
+        return actorService.saveActor((Actor) person);
     }
 
     public void saveActor(ActionEvent event) {
         try {
             if (MovieUtil.okToSave(getNewPerson())) {
-                savePerson(getNewPerson());
+                setNewPerson(savePerson(getNewPerson()));
                 setCreateUserMode(false);
+                actors = Arrays.asList((Actor)getNewPerson());
                 JsfUtil.addSuccessMessage("Save successfull");
             } else {
                 JsfUtil.addErrorMessage("Fill mandatory fields.");
@@ -100,4 +101,17 @@ public class ActorListBean extends PersonBean implements Serializable {
         }
     }
 
+   @Override
+    public void initCreate(ActionEvent event) {
+        setCreateUserMode(true);
+        setNewPerson(new Actor());
+    }
+
+    @Override
+    public void cancelCreatePerson(ActionEvent event) {
+        setCreateUserMode(false);
+        setNewPerson(null);
+    }
+
+    
 }

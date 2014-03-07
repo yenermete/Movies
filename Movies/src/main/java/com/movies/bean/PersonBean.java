@@ -12,7 +12,6 @@ import com.movies.entities.lut.Genre;
 import com.movies.jsf.JsfUtil;
 import com.movies.mapped.Person;
 import javax.faces.event.ActionEvent;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -24,15 +23,15 @@ public abstract class PersonBean {
     private Country selectedCountry;
     private Genre selectedGenre;
     private Integer chosenMovieId;
-    private Person chosenPerson;
-    private Person newPerson;
     private boolean createUserMode;
+    private Person newPerson;
+    private Person chosenPerson;
     /**
      * Creates a new instance of PersonBean
      */
     public PersonBean() {}
     
-    public abstract void savePerson(Person person);
+    public abstract Person savePerson(Person person);
     
     public abstract void updatePerson(Person person);
 
@@ -42,15 +41,9 @@ public abstract class PersonBean {
         return JsfUtil.getReturnUrl(MovieConstants.MOVIES_PAGE, MovieConstants.ID_FIELD, String.valueOf(chosenMovieId));
     }
     
-    public void initCreate(ActionEvent event){
-        createUserMode = true;
-        newPerson = new Person();
-    }
+    public abstract void initCreate(ActionEvent event);
     
-    public void cancelCreatePerson(ActionEvent event){
-        createUserMode = false;
-        newPerson = null;
-    }
+    public abstract void cancelCreatePerson(ActionEvent event);
     
     public String getName() {
         return name;

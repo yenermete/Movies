@@ -24,7 +24,7 @@ public interface ActorService {
 
     public List<Actor> getActorsWithSimilarName(String name);
 
-    public void saveActor(Actor actor);
+    public Actor saveActor(Actor actor);
 
     public void updateActor(Actor actor);
 

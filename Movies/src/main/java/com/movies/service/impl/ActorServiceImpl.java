@@ -47,8 +47,8 @@ public class ActorServiceImpl implements ActorService {
     }
     
     @Override
-    public void saveActor(Actor actor) {
-        baseDao.mergeEntity(actor);
+    public Actor saveActor(Actor actor) {
+        return baseDao.mergeEntity(actor);
     }
     
     @Override
