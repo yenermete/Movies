@@ -11,10 +11,6 @@
     <context:annotation-config/>
         
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-     
-    <!--    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>-->
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
     
@@ -51,19 +47,15 @@
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <bean id="movieService" class="com.movies.service.impl.MovieServiceImpl" >
-        <property name="baseDao" ref="baseDao"/>
     </bean>
 
     <bean id="actorService" class="com.movies.service.impl.ActorServiceImpl" >
-        <property name="baseDao" ref="baseDao"/>
     </bean>
         
     <bean id="directorService" class="com.movies.service.impl.DirectorServiceImpl" >
-        <property name="baseDao" ref="baseDao"/>
     </bean>
     
     <bean id="generalService" class="com.movies.service.impl.GeneralServiceImpl" >
-        <property name="baseDao" ref="baseDao"/>
     </bean>
         
     <bean id="baseDao" class="com.movies.dao.impl.BaseDaoImpl">

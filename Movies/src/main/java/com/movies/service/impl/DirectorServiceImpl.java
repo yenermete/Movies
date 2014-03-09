@@ -8,8 +8,13 @@ package com.movies.service.impl;
 import com.movies.dao.BaseDao;
 import com.movies.db.QueryNames;
 import com.movies.entities.Director;
+import com.movies.entities.Director_;
 import com.movies.service.DirectorService;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.SingularAttribute;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -17,11 +22,12 @@ import java.util.List;
  */
 public class DirectorServiceImpl implements DirectorService {
     
+    @Autowired
     private BaseDao baseDao;
     
     @Override
-    public List<Director> getAllDirectors() {
-        return baseDao.findListByNamedQuery(QueryNames.GET_ALL_DIRECTORS);
+    public List<Director> getAllDirectorsWithCountries() {
+        return baseDao.findListByNamedQuery(QueryNames.GET_ALL_DIRECTORS_WITH_COUNTRIES);
     }
     
     @Override
@@ -54,11 +60,13 @@ public class DirectorServiceImpl implements DirectorService {
         baseDao.persistEntity(director);
     }
 
-    public BaseDao getBaseDao() {
-        return baseDao;
+    @Override
+    public List<Director> getAllDirectors() {
+        return baseDao.findListByNamedQuery(QueryNames.GET_ALL_DIRECTORS);
     }
-
-    public void setBaseDao(BaseDao baseDao) {
-        this.baseDao = baseDao;
+    
+    @Override
+    public List<Director> getDirectorsByCriteria(Map<String, Object> map){
+        return baseDao.getObjectsByCriteria(map, Director.class, new SingularAttribute[]{Director_.country}, new ListAttribute[]{Director_.movies});
     }
 }

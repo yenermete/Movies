@@ -7,11 +7,17 @@
     <h:panelGroup id="createAndFilterPanelId">
 
         <h:panelGrid columns="2" id="searchFieldsId" rendered="#{!bean.createUserMode}">
-            <p:outputLabel value="Name" styleClass="marginRight"/>
-            <p:inputText value="#{bean.name}" size="10"/>
-            <p:commandButton value="Search" actionListener="#{bean[listMethod]}"
+<!--            <p:outputLabel value="Name" styleClass="marginRight"/>
+            <p:inputText value="#{bean.name}" size="10"/>-->
+            <p:outputLabel value="Country" styleClass="marginRight"/>
+            <p:selectOneMenu value="#{bean.country}">
+                <f:selectItem noSelectionOption="true" itemLabel="choose"/>
+                <f:selectItems value="#{appBean.countryList}" var="country" itemLabel="#{country.iso3}"
+                                   itemValue="#{country}"/>
+            </p:selectOneMenu>
+            <p:commandButton value="Search" actionListener="#{bean[listMethod]}" styleClass="blueButtonClass"
                              update="peopleTableId" process="searchFieldsId"/>
-            <p:commandButton value="New" actionListener="#{bean[initCreateMethod]}"
+            <p:commandButton value="New" actionListener="#{bean[initCreateMethod]}" styleClass="greenButtonClass"
                              update="createAndFilterPanelId" process="@this"/>
         </h:panelGrid>
 
@@ -31,10 +37,17 @@
                 </p:selectOneMenu>
                 <p:outputLabel value="Birth Date"/>
                 <p:calendar value="#{bean.newPerson.birthDate}"/>
+                    <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
+                    <f:selectItems value="#{appBean.sexList}" var="sex" itemValue="#{sex}" itemLabel="#{sex.sex}"/>
+                <p:outputLabel value="Sex"/>
+                <p:selectOneMenu value="#{bean.newPerson.sex}">
+                    <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
+                    <f:selectItems value="#{appBean.sexList}" var="sex" itemValue="#{sex}" itemLabel="#{sex.sex}"/>
+                </p:selectOneMenu>
 
-                <p:commandButton value="Cancel" actionListener="#{bean[cancelCreateMethod]}"
+                <p:commandButton value="Cancel" actionListener="#{bean[cancelCreateMethod]}" styleClass="blueButtonClass"
                                  update="createAndFilterPanelId" process="createPanelId"/>
-                <p:commandButton value="Save" actionListener="#{bean[saveMethod]}"
+                <p:commandButton value="Save" actionListener="#{bean[saveMethod]}" styleClass="greenButtonClass"
                                  update="createAndFilterPanelId peopleTableId" process="createPanelId"/>
             </h:panelGrid>
         </p:panel>
@@ -85,7 +98,7 @@
             </f:facet>
 
             <p:dataTable value="#{person.movies}" var="movie" styleClass="borderless smallTable"
-                         rowKey="#{movie.id}" rowStyleClass="paleBlueRow">
+                         rowKey="#{movie.id}" rowStyleClass="paleBlueRow" emptyMessage="No known movies in the system.">
                 <p:column>
                     <p:commandLink value="#{movie.title}" action="#{bean.goToMovieDetail()}">
                         <f:setPropertyActionListener target="#{bean.chosenMovieId}" value="#{movie.id}"/>

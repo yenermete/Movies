@@ -8,8 +8,16 @@ package com.movies.service.impl;
 import com.movies.dao.BaseDao;
 import com.movies.db.QueryNames;
 import com.movies.entities.Actor;
+import com.movies.entities.Actor_;
+import com.movies.entities.lut.Country;
+import com.movies.mapped.Person;
 import com.movies.service.ActorService;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.SingularAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -22,8 +30,8 @@ public class ActorServiceImpl implements ActorService {
     private BaseDao baseDao;
     
     @Override
-    public List<Actor> getAllActors() {
-        return baseDao.findListByNamedQuery(QueryNames.GET_ALL_ACTORS);
+    public List<Actor> getAllActorsWithCountries() {
+        return baseDao.findListByNamedQuery(QueryNames.GET_ALL_ACTORS_WITH_COUNTRY);
     }
     
     @Override
@@ -47,6 +55,11 @@ public class ActorServiceImpl implements ActorService {
     }
     
     @Override
+    public List<Actor> getActorsByCriteria(Map<String, Object> map){
+        return baseDao.getObjectsByCriteria(map, Actor.class, new SingularAttribute[]{Actor_.country}, new ListAttribute[]{Actor_.movies});
+    }
+    
+    @Override
     public Actor saveActor(Actor actor) {
         return baseDao.mergeEntity(actor);
     }
@@ -56,12 +69,9 @@ public class ActorServiceImpl implements ActorService {
         baseDao.persistEntity(actor);
     }
 
-    public BaseDao getBaseDao() {
-        return baseDao;
-    }
-
-    public void setBaseDao(BaseDao baseDao) {
-        this.baseDao = baseDao;
+    @Override
+    public List<Actor> getAllActors() {
+        return baseDao.findListByNamedQuery(QueryNames.GET_ALL_ACTORS);
     }
 
 }

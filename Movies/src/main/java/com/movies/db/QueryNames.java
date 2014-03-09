@@ -12,6 +12,7 @@ package com.movies.db;
  */
 public class QueryNames {
     
+    public static final String GET_ALL_ACTORS_WITH_COUNTRY = "getAllActorsWithCountry";
     public static final String GET_ALL_ACTORS = "getAllActors";
     public static final String GET_ACTOR_BY_SIMILAR_NAME = "getActorsBySimilarName";
     public static final String GET_ACTOR_BY_ID = "getActorById";
@@ -26,6 +27,7 @@ public class QueryNames {
     public static final String GET_MOVIE_WITH_DIRECTORS = "getMovieWithDirectors";
     public static final String GET_MOVIE_WITH_ACTORS_DIRECTORS = "getMovieWithActorsAndDirectors";
     
+    public static final String GET_ALL_DIRECTORS_WITH_COUNTRIES = "getAllDirectorsWithCountry";
     public static final String GET_ALL_DIRECTORS = "getAllDirectors";
     public static final String GET_ALL_DIRECTORS_WITH_MOVIES="getAllDirectorsWithMovies";
     public static final String GET_DIRECTOR_WITH_MOVIES = "getDirectorWithMovies";

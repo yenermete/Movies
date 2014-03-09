@@ -7,6 +7,7 @@ package com.movies.service;
 
 import com.movies.entities.Director;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,6 +15,8 @@ import java.util.List;
  */
 public interface DirectorService {
 
+    public List<Director> getAllDirectorsWithCountries();
+    
     public List<Director> getAllDirectors();
     
     public List<Director> getAllDirectorsWithMovies();
@@ -27,4 +30,6 @@ public interface DirectorService {
     public Director saveDirector(Director director);
 
     public void updateDirector(Director director);
+    
+    public List<Director> getDirectorsByCriteria(Map<String, Object> map);
 }

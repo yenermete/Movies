@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -70,10 +71,14 @@ public class DirectorListBean extends PersonBean implements Serializable {
 
     @Override
     public void searchPeople(ActionEvent event) {
-        System.out.println("yenerrrr");
-        try{
-            directors = directorService.getAllDirectorsWithMovies();
-        } catch(Exception e){
+        try {
+            createParameterMap();
+            if(MapUtils.isEmpty(parameterMap)){
+                directors = directorService.getAllDirectorsWithMovies();
+            } else {
+                directors = directorService.getDirectorsByCriteria(parameterMap);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage("Error : " + e.getMessage());
         }

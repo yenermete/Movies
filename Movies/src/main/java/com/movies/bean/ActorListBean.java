@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -94,7 +95,12 @@ public class ActorListBean extends PersonBean implements Serializable {
     @Override
     public void searchPeople(ActionEvent event) {
         try {
-            actors = actorService.getAllActorsWithMovies();
+            createParameterMap();
+            if(MapUtils.isEmpty(parameterMap)){
+                actors = actorService.getAllActorsWithMovies();
+            } else {
+                actors = actorService.getActorsByCriteria(parameterMap);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage("Error : " + e.getMessage());

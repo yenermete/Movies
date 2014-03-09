@@ -7,6 +7,7 @@ package com.movies.service;
 
 import com.movies.entities.Actor;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,10 +15,12 @@ import java.util.List;
  */
 public interface ActorService {
 
+    public List<Actor> getAllActorsWithCountries();
+
     public List<Actor> getAllActors();
-    
+
     public List<Actor> getAllActorsWithMovies();
-            
+
     public Actor getActorById(Integer actorId);
 
     public Actor getActorWithMovies(Integer actorId);
@@ -27,5 +30,7 @@ public interface ActorService {
     public Actor saveActor(Actor actor);
 
     public void updateActor(Actor actor);
+
+    public List<Actor> getActorsByCriteria(Map<String, Object> map);
 
 }

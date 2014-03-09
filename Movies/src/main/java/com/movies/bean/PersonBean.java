@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.movies.bean;
 
 import com.movies.constants.MovieConstants;
 import com.movies.entities.lut.Country;
-import com.movies.entities.lut.Genre;
 import com.movies.jsf.JsfUtil;
 import com.movies.mapped.Person;
+import java.util.HashMap;
+import java.util.Map;
 import javax.faces.event.ActionEvent;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -20,31 +21,43 @@ import javax.faces.event.ActionEvent;
 public abstract class PersonBean {
 
     private String name;
-    private Country selectedCountry;
-    private Genre selectedGenre;
+    private Country country;
     private Integer chosenMovieId;
     private boolean createUserMode;
     private Person newPerson;
     private Person chosenPerson;
+    protected Map<String, Object> parameterMap;
+
     /**
      * Creates a new instance of PersonBean
      */
-    public PersonBean() {}
-    
+    public PersonBean() {
+    }
+
     public abstract Person savePerson(Person person);
-    
+
     public abstract void updatePerson(Person person);
 
     public abstract void searchPeople(ActionEvent event);
-    
-    public String goToMovieDetail(){
+
+    public String goToMovieDetail() {
         return JsfUtil.getReturnUrl(MovieConstants.MOVIES_PAGE, MovieConstants.ID_FIELD, String.valueOf(chosenMovieId));
     }
-    
+
     public abstract void initCreate(ActionEvent event);
-    
+
     public abstract void cancelCreatePerson(ActionEvent event);
-    
+
+    protected void createParameterMap() {
+        parameterMap = new HashMap<>();
+        if (StringUtils.isNotBlank(getName())) {
+            parameterMap.put("name", getName());
+        }
+        if (getCountry() != null) {
+            parameterMap.put("country", getCountry());
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -53,20 +66,12 @@ public abstract class PersonBean {
         this.name = name;
     }
 
-    public Country getSelectedCountry() {
-        return selectedCountry;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setSelectedCountry(Country selectedCountry) {
-        this.selectedCountry = selectedCountry;
-    }
-
-    public Genre getSelectedGenre() {
-        return selectedGenre;
-    }
-
-    public void setSelectedGenre(Genre selectedGenre) {
-        this.selectedGenre = selectedGenre;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Integer getChosenMovieId() {
@@ -100,5 +105,5 @@ public abstract class PersonBean {
     public void setCreateUserMode(boolean createUserMode) {
         this.createUserMode = createUserMode;
     }
-    
+
 }

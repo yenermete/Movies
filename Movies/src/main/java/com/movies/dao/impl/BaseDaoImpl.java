@@ -20,6 +20,9 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.SingularAttribute;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -84,12 +87,32 @@ public class BaseDaoImpl implements BaseDao {
         return (T) em.createNamedQuery(queryName).setParameter(key, value).getSingleResult();
     }
 
-    
     @Override
-    public <T> List<T> getObjectsByCriteria(Map<String, Object> map, Class clazz) {
-        throw new UnsupportedOperationException();
+    public <T> List<T> getObjectsByCriteria(Map<String, Object> map, Class returnClass, SingularAttribute[] singleAttributes, ListAttribute[] listAttributes) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(returnClass).distinct(true);
+        Root<T> root = cq.from(returnClass);
+        cq.select(root);
+        
+        for(SingularAttribute attribute : singleAttributes) {
+            root.join(attribute);
+            root.fetch(attribute);
+        }
+        for(ListAttribute attribute : listAttributes) {
+            root.join(attribute);
+            root.fetch(attribute);
+        }
+        Set<Entry<String, Object>> set = map.entrySet();
+        
+        for(Entry<String, Object> entry : set) {
+            cq.where(cb.equal(root.get(entry.getKey()), entry.getValue()));
+        }
+        
+        TypedQuery<T> q = em.createQuery(cq);
+        return q.getResultList();
+
     }
-    
+
     @Override
     public <T> List<T> getAllObjects(Class clazz) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

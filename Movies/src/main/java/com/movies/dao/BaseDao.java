@@ -8,6 +8,8 @@ package com.movies.dao;
 
 import java.util.List;
 import java.util.Map;
+import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.SingularAttribute;
 /**
  *
  * @author Yener
@@ -34,5 +36,5 @@ public interface BaseDao {
     
     public <T> List<T> getAllObjects(Class clazz);
     
-    public <T> List<T> getObjectsByCriteria(Map<String, Object> map, Class clazz);
+    public <T> List<T> getObjectsByCriteria(Map<String, Object> map, Class returnClass, SingularAttribute[] singleAttributes, ListAttribute[] listAttributes);
 }

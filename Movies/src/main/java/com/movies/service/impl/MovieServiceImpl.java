@@ -67,11 +67,4 @@ public class MovieServiceImpl implements MovieService {
         return movie;
     }
 
-    public BaseDao getBaseDao() {
-        return baseDao;
-    }
-
-    public void setBaseDao(BaseDao baseDao) {
-        this.baseDao = baseDao;
-    }
 }

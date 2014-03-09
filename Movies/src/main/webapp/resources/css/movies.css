@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : Yener
 */
 .anchorClass {
-    background-color: #2554C7;
+    background-color: #009966;
     font-weight: bold;
     font-size: 20px;
     border : #2B547E;
@@ -16,12 +16,37 @@ and open the template in the editor.
     text-decoration: none;
 }
 
+.bodyClass { margin-left: 20%;}
+
 .ui-panel-titlebar.newPersonPanel,
 .ui-widget-header.newPersonPanel,
 .ui-helper-clearfix.newPersonPanel,
 .ui-corner-all.newPersonPanel {
     width: 400px;
     margin-bottom: 20px;
+}
+
+.ui-button.greenButtonClass,
+.ui-widget.greenButtonClass,
+.ui-button-text.greenButtonClass{
+    background-color: #4b9b7b;
+}
+
+.ui-button.blueButtonClass,
+.ui-widget.blueButtonClass,
+.ui-button-text.blueButtonClass{
+    background-color: #7787b1;
+}
+
+.ui-button.greenButtonClass,
+.ui-button.blueButtonClass,
+.ui-widget.blueButtonClass,
+.ui-widget.greenButtonClass,
+.ui-button-text.greenButtonClass
+.ui-button-text.blueButtonClass{
+    width: 150px;
+    border-color: #AAAAEE;
+    color: #1520b7;
 }
 
 .ui-datatable.borderless table thead tr {
@@ -67,19 +92,26 @@ and open the template in the editor.
 }
 
 .ui-state-default.smallColumn {
-    width: 150px !important;
+    width: 150px ;
 }
 
 .ui-state-default.dateColumn {
-    width: 80px !important;
+    width: 80px ;
 }
 
 .ui-state-default.mediumColumn {
-    width: 250px !important;
+    width: 250px ;
 }
 
 .ui-state-default.bigColumn {
-    width: 400px !important;
+    width: 400px;
+}
+
+.ui-state-default.smallColumn,
+.ui-state-default.dateColumn,
+.ui-state-default.mediumColumn,
+.ui-state-default.bigColumn {
+    background-color: #99CCCC;
 }
 
 .ui-outputLabel.marginRight {
@@ -87,6 +119,6 @@ and open the template in the editor.
 }
 
 .ui-paginator{
-    width: 1000px !important;
+    width: 1000px ;
 }
 
