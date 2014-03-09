@@ -46,17 +46,13 @@
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-    <bean id="movieService" class="com.movies.service.impl.MovieServiceImpl" >
-    </bean>
+    <bean id="movieService" class="com.movies.service.impl.MovieServiceImpl"/>
 
-    <bean id="actorService" class="com.movies.service.impl.ActorServiceImpl" >
-    </bean>
+    <bean id="actorService" class="com.movies.service.impl.ActorServiceImpl"/>
         
-    <bean id="directorService" class="com.movies.service.impl.DirectorServiceImpl" >
-    </bean>
+    <bean id="directorService" class="com.movies.service.impl.DirectorServiceImpl"/>
     
-    <bean id="generalService" class="com.movies.service.impl.GeneralServiceImpl" >
-    </bean>
+    <bean id="generalService" class="com.movies.service.impl.GeneralServiceImpl"/>
         
     <bean id="baseDao" class="com.movies.dao.impl.BaseDaoImpl">
         <property name="emf" ref="emf"/>
