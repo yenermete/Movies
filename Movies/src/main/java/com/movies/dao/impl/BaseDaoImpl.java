@@ -20,6 +20,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.ListAttribute;
@@ -101,8 +102,8 @@ public class BaseDaoImpl implements BaseDao {
             root.fetch(attribute);
         }
         for (ListAttribute attribute : listAttributes) {
-            root.join(attribute);
-            root.fetch(attribute);
+            root.join(attribute, JoinType.LEFT);
+            root.fetch(attribute, JoinType.LEFT);
         }
         Set<Entry<String, Object>> set = map.entrySet();
         int numberOfClauses = set.size();
