@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : Yener
 */
 .anchorClass {
-    background-color: #009966;
+    background: #009966;
     font-weight: bold;
     font-size: 20px;
     border : #2B547E;
@@ -29,13 +29,13 @@ and open the template in the editor.
 .ui-button.greenButtonClass,
 .ui-widget.greenButtonClass,
 .ui-button-text.greenButtonClass{
-    background-color: #4b9b7b;
+    background: #c2f7c6;
 }
 
 .ui-button.blueButtonClass,
 .ui-widget.blueButtonClass,
 .ui-button-text.blueButtonClass{
-    background-color: #7787b1;
+    background: #b8aff3;
 }
 
 .ui-button.greenButtonClass,
@@ -70,17 +70,17 @@ and open the template in the editor.
 
 .ui-datatable-odd.colorlessRow,
 .ui-datatable-even.colorlessRow{
-    background-color: #FFFFFF;
+    background: #FFFFFF;
 }
 
 .ui-datatable-odd.paleBlueRow,
 .ui-datatable-even.paleBlueRow{
-    background-color: #F0FFFF;
+    background: #e8e5f8;
 }
 
 .ui-datatable-odd.paleGreenRow,
 .ui-datatable-even.paleGreenRow{
-    background-color: #C3FDB8;
+    background: #C3FDB8;
 }
 
 .ui-datatable.borderless table thead tr,
@@ -111,7 +111,7 @@ and open the template in the editor.
 .ui-state-default.dateColumn,
 .ui-state-default.mediumColumn,
 .ui-state-default.bigColumn {
-    background-color: #99CCCC;
+    background: #cff5f2;
 }
 
 .ui-outputLabel.marginRight {

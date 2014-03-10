@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class PersonBean {
 
     private String name;
+    private String surname;
     private Country country;
     private Integer chosenMovieId;
     private boolean createUserMode;
@@ -50,11 +51,14 @@ public abstract class PersonBean {
 
     protected void createParameterMap() {
         parameterMap = new HashMap<>();
-        if (StringUtils.isNotBlank(getName())) {
-            parameterMap.put("name", getName());
+        if (StringUtils.isNotBlank(name)) {
+            parameterMap.put(MovieConstants.NAME_FIELD, name);
         }
-        if (getCountry() != null) {
-            parameterMap.put("country", getCountry());
+        if (StringUtils.isNotBlank(surname)) {
+            parameterMap.put(MovieConstants.SURNAME_FIELD, surname);
+        }
+        if (country != null) {
+            parameterMap.put(MovieConstants.COUNTRY_FIELD, country);
         }
     }
 
@@ -104,6 +108,14 @@ public abstract class PersonBean {
 
     public void setCreateUserMode(boolean createUserMode) {
         this.createUserMode = createUserMode;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
 }

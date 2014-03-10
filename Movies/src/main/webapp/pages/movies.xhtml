@@ -14,9 +14,9 @@
 
             <ui:include src="/pages/template/template.xhtml"/>
 
-            <p:dataTable value="#{movieDetailBean.movies}" var="movie" styleClass="bigTable" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{movie.id}"
+            <p:dataTable value="#{movieDetailBean.movies}" var="movie" styleClass="bigTable" rows="8" paginator="true" paginatorPosition="bottom" rowKey="#{movie.id}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15" rowStyleClass="colorlessRow">
+                         paginatorAlwaysVisible="false" rowsPerPageTemplate="4, 8, 12" rowStyleClass="colorlessRow">
 
                 <p:column styleClass="mediumColumn">
                     <f:facet name="header">

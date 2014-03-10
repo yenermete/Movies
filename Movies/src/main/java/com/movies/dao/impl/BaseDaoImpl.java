@@ -5,6 +5,7 @@
  */
 package com.movies.dao.impl;
 
+import com.movies.constants.MovieConstants;
 import com.movies.dao.BaseDao;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +20,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public class BaseDaoImpl implements BaseDao {
+
+    private final String LIKE = "%";
 
     @PersistenceContext
     private EntityManager em;
@@ -92,24 +95,29 @@ public class BaseDaoImpl implements BaseDao {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(returnClass).distinct(true);
         Root<T> root = cq.from(returnClass);
-        cq.select(root);
-        
-        for(SingularAttribute attribute : singleAttributes) {
+
+        for (SingularAttribute attribute : singleAttributes) {
             root.join(attribute);
             root.fetch(attribute);
         }
-        for(ListAttribute attribute : listAttributes) {
+        for (ListAttribute attribute : listAttributes) {
             root.join(attribute);
             root.fetch(attribute);
         }
         Set<Entry<String, Object>> set = map.entrySet();
-        
-        for(Entry<String, Object> entry : set) {
-            cq.where(cb.equal(root.get(entry.getKey()), entry.getValue()));
+        int numberOfClauses = set.size();
+        Predicate[] predicates = new Predicate[numberOfClauses];
+        int i = 0;
+        for (Entry<String, Object> entry : set) {
+            String key = entry.getKey();
+            if (MovieConstants.NAME_FIELD.equals(key) || MovieConstants.SURNAME_FIELD.equals(key)) {
+                predicates[i++] = cb.like(cb.upper(root.<String>get(key)), LIKE + entry.getValue() + LIKE);
+            } else {
+                predicates[i++] = cb.equal(root.get(key), entry.getValue());
+            }
         }
         
-        TypedQuery<T> q = em.createQuery(cq);
-        return q.getResultList();
+        return em.createQuery(cq.select(root).where(predicates)).getResultList();
 
     }
 

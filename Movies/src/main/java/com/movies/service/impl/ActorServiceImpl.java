@@ -5,6 +5,7 @@
  */
 package com.movies.service.impl;
 
+import com.movies.constants.MovieConstants;
 import com.movies.dao.BaseDao;
 import com.movies.db.QueryNames;
 import com.movies.entities.Actor;
@@ -41,17 +42,17 @@ public class ActorServiceImpl implements ActorService {
     
     @Override
     public Actor getActorById(Integer actorId) {
-        return baseDao.findUniqueByNamedQueryAndParam(QueryNames.GET_ACTOR_BY_ID, "id", actorId);
+        return baseDao.findUniqueByNamedQueryAndParam(QueryNames.GET_ACTOR_BY_ID, MovieConstants.ID_FIELD, actorId);
     }
     
     @Override
     public Actor getActorWithMovies(Integer actorId) {
-        return baseDao.findUniqueByNamedQueryAndParam(QueryNames.GET_ACTOR_WITH_MOVIES, "id", actorId);
+        return baseDao.findUniqueByNamedQueryAndParam(QueryNames.GET_ACTOR_WITH_MOVIES,  MovieConstants.ID_FIELD, actorId);
     }
     
     @Override
     public List<Actor> getActorsWithSimilarName(String name) {
-        return baseDao.findListByNamedQueryAndParam(QueryNames.GET_ACTOR_BY_SIMILAR_NAME, "name", name);
+        return baseDao.findListByNamedQueryAndParam(QueryNames.GET_ACTOR_BY_SIMILAR_NAME,  MovieConstants.NAME_FIELD, name);
     }
     
     @Override

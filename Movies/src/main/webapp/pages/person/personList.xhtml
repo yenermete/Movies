@@ -7,14 +7,23 @@
     <h:panelGroup id="createAndFilterPanelId">
 
         <h:panelGrid columns="2" id="searchFieldsId" rendered="#{!bean.createUserMode}">
-<!--            <p:outputLabel value="Name" styleClass="marginRight"/>
-            <p:inputText value="#{bean.name}" size="10"/>-->
+            <p:outputLabel value="Name" styleClass="marginRight"/>
+            <p:inputText value="#{bean.name}" size="10" converter="upperCaseConverter">
+                <p:ajax event="change" update="@this"/>
+            </p:inputText>
+            
+            <p:outputLabel value="Surname" styleClass="marginRight"/>
+            <p:inputText value="#{bean.surname}" size="10" converter="upperCaseConverter">
+                <p:ajax event="change" update="@this"/>
+            </p:inputText>
+            
             <p:outputLabel value="Country" styleClass="marginRight"/>
             <p:selectOneMenu value="#{bean.country}">
-                <f:selectItem noSelectionOption="true" itemLabel="choose"/>
+                <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
                 <f:selectItems value="#{appBean.countryList}" var="country" itemLabel="#{country.iso3}"
-                                   itemValue="#{country}"/>
+                               itemValue="#{country}"/>
             </p:selectOneMenu>
+            
             <p:commandButton value="Search" actionListener="#{bean[listMethod]}" styleClass="blueButtonClass"
                              update="peopleTableId" process="searchFieldsId"/>
             <p:commandButton value="New" actionListener="#{bean[initCreateMethod]}" styleClass="greenButtonClass"
@@ -25,20 +34,24 @@
             <h:panelGrid columns="2" id="createPanelId">
                 <p:outputLabel value="Name"/>
                 <p:inputText value="#{bean.newPerson.name}"/>
+                
                 <p:outputLabel value="Middle Name"/>
                 <p:inputText value="#{bean.newPerson.middleName}"/>
+                
                 <p:outputLabel value="Surname"/>
                 <p:inputText value="#{bean.newPerson.surname}"/>
+                
                 <p:outputLabel value="Country"/>
                 <p:selectOneMenu value="#{bean.newPerson.country}">
+                    
                     <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
                     <f:selectItems value="#{appBean.countryList}" var="country" itemLabel="#{country.iso3}"
                                    itemValue="#{country}"/>
                 </p:selectOneMenu>
+                
                 <p:outputLabel value="Birth Date"/>
                 <p:calendar value="#{bean.newPerson.birthDate}"/>
-                    <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
-                    <f:selectItems value="#{appBean.sexList}" var="sex" itemValue="#{sex}" itemLabel="#{sex.sex}"/>
+
                 <p:outputLabel value="Sex"/>
                 <p:selectOneMenu value="#{bean.newPerson.sex}">
                     <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
@@ -54,9 +67,9 @@
 
     </h:panelGroup>
 
-    <p:dataTable id="peopleTableId" value="#{tableList}" var="person" styleClass="bigTable" rows="10" paginator="true" paginatorPosition="bottom" rowKey="#{person.id}"
+    <p:dataTable id="peopleTableId" value="#{tableList}" var="person" styleClass="bigTable" rows="8" paginator="true" paginatorPosition="bottom" rowKey="#{person.id}"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                 paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15" rowStyleClass="colorlessRow">
+                 paginatorAlwaysVisible="false" rowsPerPageTemplate="4, 8, 12" rowStyleClass="colorlessRow">
 
         <p:column styleClass="mediumColumn">
             <f:facet name="header">
