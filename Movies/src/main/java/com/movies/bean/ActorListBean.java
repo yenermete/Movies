@@ -119,6 +119,5 @@ public class ActorListBean extends PersonBean implements Serializable {
         setCreateUserMode(false);
         setNewPerson(null);
     }
-
     
 }
