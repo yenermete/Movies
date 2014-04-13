@@ -8,8 +8,12 @@ package com.movies.service.impl;
 import com.movies.dao.BaseDao;
 import com.movies.db.QueryNames;
 import com.movies.entities.Movie;
+import com.movies.entities.Movie_;
 import com.movies.service.MovieService;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.metamodel.SetAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -65,6 +69,11 @@ public class MovieServiceImpl implements MovieService {
     public Movie updateMovie(Movie movie) {
         baseDao.persistEntity(movie);
         return movie;
+    }
+
+    @Override
+    public List<Movie> getMoviesByCriteria(Map<String, Object> map) {
+        return baseDao.getObjectsByCriteria(map, Movie.class, null, null, Arrays.asList(new SetAttribute[]{Movie_.actors, Movie_.directors, Movie_.genres}));
     }
 
 }

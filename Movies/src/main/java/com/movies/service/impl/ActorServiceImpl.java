@@ -10,13 +10,10 @@ import com.movies.dao.BaseDao;
 import com.movies.db.QueryNames;
 import com.movies.entities.Actor;
 import com.movies.entities.Actor_;
-import com.movies.entities.lut.Country;
-import com.movies.mapped.Person;
 import com.movies.service.ActorService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +54,7 @@ public class ActorServiceImpl implements ActorService {
     
     @Override
     public List<Actor> getActorsByCriteria(Map<String, Object> map){
-        return baseDao.getObjectsByCriteria(map, Actor.class, new SingularAttribute[]{Actor_.country}, new ListAttribute[]{Actor_.movies});
+        return baseDao.getObjectsByCriteria(map, Actor.class, Arrays.asList(new SingularAttribute[]{Actor_.country}), Arrays.asList(new ListAttribute[]{Actor_.movies}), null);
     }
     
     @Override
