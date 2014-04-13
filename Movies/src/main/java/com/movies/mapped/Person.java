@@ -113,7 +113,7 @@ public class Person {
         return fullName;
     }
     
-    private void createFullName() {
+    protected void createFullName() {
         fullName = getStringWithPadding(name, MovieConstants.RIGHT_PAD)
                 + getStringWithPadding(middleName, MovieConstants.RIGHT_PAD) + surname;
     }

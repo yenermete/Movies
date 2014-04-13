@@ -7,6 +7,9 @@ package com.movies.dao.impl;
 
 import com.movies.constants.MovieConstants;
 import com.movies.dao.BaseDao;
+import com.movies.entities.Director;
+import com.movies.entities.Director_;
+import com.movies.entities.Movie_;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,11 +23,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -90,20 +96,32 @@ public class BaseDaoImpl implements BaseDao {
     public <T> T findUniqueByNamedQueryAndParam(String queryName, String key, Object value) {
         return (T) em.createNamedQuery(queryName).setParameter(key, value).getSingleResult();
     }
-
+    
     @Override
-    public <T> List<T> getObjectsByCriteria(Map<String, Object> map, Class returnClass, SingularAttribute[] singleAttributes, ListAttribute[] listAttributes) {
+    public <T> List<T> getObjectsByCriteria(Map<String, Object> map, Class returnClass, List<SingularAttribute>singleAttributes, List<ListAttribute> listAttributes, List<SetAttribute> setAttributes) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(returnClass).distinct(true);
         Root<T> root = cq.from(returnClass);
-
-        for (SingularAttribute attribute : singleAttributes) {
-            root.join(attribute);
-            root.fetch(attribute);
+        
+        if(CollectionUtils.isNotEmpty(singleAttributes)) {
+            for (SingularAttribute attribute : singleAttributes) {
+                root.join(attribute);
+                root.fetch(attribute);
+            }
         }
-        for (ListAttribute attribute : listAttributes) {
-            root.join(attribute, JoinType.LEFT);
-            root.fetch(attribute, JoinType.LEFT);
+        
+        if(CollectionUtils.isNotEmpty(listAttributes)) {
+            for (ListAttribute attribute : listAttributes) {
+                root.join(attribute, JoinType.LEFT);
+                root.fetch(attribute, JoinType.LEFT);
+            }
+        }
+        
+        if(CollectionUtils.isNotEmpty(setAttributes)) {
+            for (SetAttribute attribute : setAttributes) {
+                root.join(attribute, JoinType.LEFT);
+                root.fetch(attribute, JoinType.LEFT);
+            }
         }
         Set<Entry<String, Object>> set = map.entrySet();
         int numberOfClauses = set.size();
@@ -113,6 +131,8 @@ public class BaseDaoImpl implements BaseDao {
             String key = entry.getKey();
             if (MovieConstants.NAME_FIELD.equals(key) || MovieConstants.SURNAME_FIELD.equals(key)) {
                 predicates[i++] = cb.like(cb.upper(root.<String>get(key)), LIKE + entry.getValue() + LIKE);
+            } else if(MovieConstants.MOVIE_DIRECTOR_FIELD.equals(key)) {
+                //predicates[i++] = cb.equal( ,entry.getValue());
             } else {
                 predicates[i++] = cb.equal(root.get(key), entry.getValue());
             }

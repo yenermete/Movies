@@ -34,7 +34,7 @@
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:SportsDb"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:Sports"/>
         <property name="username" value="yener"/>
         <property name="password" value="yener"/>
     </bean>

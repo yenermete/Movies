@@ -10,6 +10,7 @@ import com.movies.db.QueryNames;
 import com.movies.entities.Director;
 import com.movies.entities.Director_;
 import com.movies.service.DirectorService;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.metamodel.ListAttribute;
@@ -67,6 +68,6 @@ public class DirectorServiceImpl implements DirectorService {
     
     @Override
     public List<Director> getDirectorsByCriteria(Map<String, Object> map){
-        return baseDao.getObjectsByCriteria(map, Director.class, new SingularAttribute[]{Director_.country}, new ListAttribute[]{Director_.movies});
+        return baseDao.getObjectsByCriteria(map, Director.class, Arrays.asList(new SingularAttribute[]{Director_.country}), Arrays.asList(new ListAttribute[]{Director_.movies}), null);
     }
 }
