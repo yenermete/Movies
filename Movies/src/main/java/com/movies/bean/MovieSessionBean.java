@@ -12,6 +12,7 @@ import com.movies.service.ActorService;
 import com.movies.service.DirectorService;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -31,16 +32,15 @@ public class MovieSessionBean implements Serializable {
     
     private List<Actor> allActors;
     private List<Director> allDirectors;
-    /**
-     * Creates a new instance of MovieSessionBean
-     */
+    
+    @PostConstruct
     private void init(){
         allActors = actorService.getAllActors();
         allDirectors  = directorService.getAllDirectors();
     }
     
-    public MovieSessionBean() {
-    }
+    public void updateDirectors(){allDirectors  = directorService.getAllDirectors();}
+    public void updateActors(){allActors = actorService.getAllActors();}
 
     public ActorService getActorService() {
         return actorService;

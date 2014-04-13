@@ -89,6 +89,7 @@ public class DirectorListBean extends PersonBean implements Serializable {
             if (MovieUtil.okToSave(getNewPerson())) {
                 setNewPerson(savePerson(getNewPerson()));
                 directors = Arrays.asList((Director) getNewPerson());
+                ((MovieSessionBean) JsfUtil.findBean("movieSessionBean")).updateDirectors();
                 JsfUtil.addSuccessMessage("Save successfull");
             } else {
                 JsfUtil.addErrorMessage("Fill mandatory fields.");
