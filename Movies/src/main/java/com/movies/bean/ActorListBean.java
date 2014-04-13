@@ -120,4 +120,5 @@ public class ActorListBean extends PersonBean implements Serializable {
         setNewPerson(null);
     }
     
+    
 }
