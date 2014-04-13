@@ -19,8 +19,6 @@ public class MovieConstants {
     public static final String SURNAME_FIELD = "surname";
     public static final String GENRES_FIELD = "genres";
     public static final String MOVIES_FIELD = "movies";
-    public static final String MOVIE_TITLE_FIELD = "title";
-    public static final String MOVIE_DIRECTOR_FIELD = "movie.directors";
     public static final String COUNTRY_FIELD = "country";
     
     public static final String MOVIES_PAGE = "movies.faces";

@@ -14,140 +14,82 @@
 
             <ui:include src="/pages/template/template.xhtml"/>
 
-            <h:panelGroup id="searchPanelId">
+            <p:dataTable value="#{movieDetailBean.movies}" var="movie" styleClass="bigTable" rows="8" paginator="true" paginatorPosition="bottom" rowKey="#{movie.id}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         paginatorAlwaysVisible="false" rowsPerPageTemplate="4, 8, 12" rowStyleClass="colorlessRow">
 
-                <p:panel rendered="#{movieDetailBean.createMode}" header="Create" styleClass="newMoviePanel">
-                    <h:panelGrid columns="2" id="createFieldsId" styleClass="gridClass">
-                        
-                        <h:panelGrid columns="2" >
-                            <p:outputLabel value="Title"/>
-                            <p:inputText value="#{movieDetailBean.newMovie.title}"/>
-                            <p:outputLabel value="Release Date"/>
-                            <p:calendar value="#{movieDetailBean.newMovie.releaseDate}" size="8"/>
-                        </h:panelGrid>
-                        <h:panelGrid columns="3">
-                            <p:outputLabel value="Actors"/>
-                            <p:outputLabel value="Directors"/>
-                            <p:outputLabel value="Genres"/>
+                <p:column styleClass="mediumColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Title"/>
+                    </f:facet>
 
-                            <p:selectManyMenu value="#{movieDetailBean.newMovie.actors}" styleClass="selectMany" converter="entityConverter">
-                                <f:selectItems value="#{movieSessionBean.allActors}" var="actor" itemValue="#{actor}" itemLabel="#{actor.fullName}"/>
-                            </p:selectManyMenu>
+                    <h:outputText value="#{movie.title}"/>
+                </p:column>
 
+                <p:column styleClass="dateColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Release Date"/>
+                    </f:facet>
 
-                            <p:selectManyMenu value="#{movieDetailBean.newMovie.directors}" styleClass="selectMany" converter="entityConverter">
-                                <f:selectItems value="#{movieSessionBean.allDirectors}" var="director" itemValue="#{director}" itemLabel="#{director.fullName}"/>
-                            </p:selectManyMenu>
+                    <h:outputText value="#{movie.releaseDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                    </h:outputText>
+                </p:column>
 
-                            <p:selectManyMenu value="#{movieDetailBean.newMovie.genres}" styleClass="selectMany" converter="entityConverter">
-                                <f:selectItems value="#{appBean.genreList}" var="genre" itemValue="#{genre}" itemLabel="#{genre.genreName}"/>
-                            </p:selectManyMenu>
-                        </h:panelGrid>
-                        
+                <p:column styleClass="smallColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Director(s)"/>
+                    </f:facet>
 
-                        <h:outputLabel/>
-                        <h:panelGroup>
-                            <p:commandButton value="Cancel" actionListener="#{movieDetailBean.cancelCreateMovie}" update="searchPanelId"/>
-                            <p:commandButton value="Create" process="createFieldsId" update="searchPanelId" actionListener="#{movieDetailBean.createMovie}"/>
-                        </h:panelGroup>
-                    </h:panelGrid >
-                </p:panel>
+                    <p:dataTable value="#{movie.directorsList}" var="director" styleClass="borderless miniTable"
+                                 rowStyleClass="colorlessRow">
 
-                <h:panelGrid columns="2" rendered="#{not movieDetailBean.createMode}">
-                    <p:outputLabel value="Title"/>
-                    <p:inputText value="#{movieDetailBean.movieName}" converter="upperCaseConverter">
-                        <p:ajax event="change" update="@this"/>
-                    </p:inputText>
+                        <p:column>
 
-                    <p:outputLabel value="Director"/>
-                    <p:selectOneMenu value="#{movieDetailBean.movieDirector}" converter="entityConverter">
-                        <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
-                        <f:selectItems value="#{movieSessionBean.allDirectors}" var="director" itemLabel="#{director.fullName}" itemValue="#{director}"/>
-                    </p:selectOneMenu>
+                            <p:commandLink value="#{director.fullName}" action="#{movieDetailBean.goToPersonDetail}">
+                                <f:setPropertyActionListener value="#{director.id}" target="#{movieDetailBean.chosenPersonId}"/>
+                                <f:setPropertyActionListener value="#{movieDetailBean.director}" target="#{movieDetailBean.personType}"/>
+                            </p:commandLink>
+                        </p:column>
 
-                    <p:commandButton value="Search" actionListener="#{movieDetailBean.searchMovies(event)}" styleClass="blueButtonClass" update="directorsTableId" process="searchPanelId"/>
-                    <p:commandButton value="New Movie" actionListener="#{movieDetailBean.initCreateMovie(event)}" styleClass="greenButtonClass" update="searchPanelId"/>
+                    </p:dataTable>
+                </p:column>
 
-                </h:panelGrid>
+                <p:column styleClass="smallColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Actors"/>
+                    </f:facet>
 
+                    <p:dataTable value="#{movie.actorsList}" var="actor" styleClass="borderless miniTable"
+                                 rowStyleClass="paleBlueRow">
 
-                <p:dataTable value="#{movieDetailBean.movies}" var="movie" styleClass="bigTable" rows="4" paginator="true" paginatorPosition="bottom" rowKey="#{movie.id}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                             paginatorAlwaysVisible="false" rowsPerPageTemplate="2, 4, 6" rowStyleClass="colorlessRow" id="directorsTableId">
+                        <p:column>
 
-                    <p:column styleClass="mediumColumn">
-                        <f:facet name="header">
-                            <p:outputLabel value="Title"/>
-                        </f:facet>
+                            <p:commandLink value="#{actor.fullName}" action="#{movieDetailBean.goToPersonDetail}">
+                                <f:setPropertyActionListener value="#{actor.id}" target="#{movieDetailBean.chosenPersonId}"/>
+                                <f:setPropertyActionListener value="#{movieDetailBean.actor}" target="#{movieDetailBean.personType}"/>
+                            </p:commandLink>
+                        </p:column>
 
-                        <h:outputText value="#{movie.title}"/>
-                    </p:column>
+                    </p:dataTable>
+                </p:column>
 
-                    <p:column styleClass="dateColumn">
-                        <f:facet name="header">
-                            <p:outputLabel value="Release Date"/>
-                        </f:facet>
+                <p:column styleClass="smallColumn">
+                    <f:facet name="header">
+                        <p:outputLabel value="Genre"/>
+                    </f:facet>
 
-                        <h:outputText value="#{movie.releaseDate}">
-                            <f:convertDateTime pattern="dd.MM.yyyy"/>
-                        </h:outputText>
-                    </p:column>
+                    <p:dataTable value="#{movie.genresList}" var="genre" styleClass="borderless miniTable"
+                                 rowStyleClass="paleGreenRow">
 
-                    <p:column styleClass="smallColumn">
-                        <f:facet name="header">
-                            <p:outputLabel value="Director(s)"/>
-                        </f:facet>
+                        <p:column>
 
-                        <p:dataTable value="#{movie.directorsList}" var="director" styleClass="borderless miniTable"
-                                     rowStyleClass="colorlessRow">
+                            <h:outputText value="#{genre.genreName}"/>
+                        </p:column>
 
-                            <p:column>
-
-                                <p:commandLink value="#{director.fullName}" action="#{movieDetailBean.goToPersonDetail}">
-                                    <f:setPropertyActionListener value="#{director.id}" target="#{movieDetailBean.chosenPersonId}"/>
-                                    <f:setPropertyActionListener value="#{movieDetailBean.director}" target="#{movieDetailBean.personType}"/>
-                                </p:commandLink>
-                            </p:column>
-
-                        </p:dataTable>
-                    </p:column>
-
-                    <p:column styleClass="smallColumn">
-                        <f:facet name="header">
-                            <p:outputLabel value="Actors"/>
-                        </f:facet>
-
-                        <p:dataTable value="#{movie.actorsList}" var="actor" styleClass="borderless miniTable"
-                                     rowStyleClass="paleBlueRow">
-
-                            <p:column>
-
-                                <p:commandLink value="#{actor.fullName}" action="#{movieDetailBean.goToPersonDetail}">
-                                    <f:setPropertyActionListener value="#{actor.id}" target="#{movieDetailBean.chosenPersonId}"/>
-                                    <f:setPropertyActionListener value="#{movieDetailBean.actor}" target="#{movieDetailBean.personType}"/>
-                                </p:commandLink>
-                            </p:column>
-
-                        </p:dataTable>
-                    </p:column>
-
-                    <p:column styleClass="smallColumn">
-                        <f:facet name="header">
-                            <p:outputLabel value="Genre"/>
-                        </f:facet>
-
-                        <p:dataTable value="#{movie.genresList}" var="genre" styleClass="borderless miniTable"
-                                     rowStyleClass="paleGreenRow">
-
-                            <p:column>
-
-                                <h:outputText value="#{genre.genreName}"/>
-                            </p:column>
-
-                        </p:dataTable>
-                    </p:column>
-                </p:dataTable>
-            </h:panelGroup>
+                    </p:dataTable>
+                </p:column>
+            </p:dataTable>
         </h:form>
     </h:body>
 </html>

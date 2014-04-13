@@ -9,6 +9,7 @@
         <title>Directors</title>
     </h:head>
     <h:body styleClass="bodyClass">
+        <p:messages id="messages" autoUpdate="true"/>
         <h:form prependId="false" id="form">
 
             <ui:include src="/pages/template/template.xhtml"/>
@@ -20,7 +21,6 @@
                 <ui:param name="saveMethod" value="saveDirector"/>
                 <ui:param name="cancelCreateMethod" value="cancelCreatePerson"/>
                 <ui:param name="initCreateMethod" value="initCreate"/>
-                <ui:param name="nameLabel" value="Director Name"/>
             </ui:include>
 
         </h:form>

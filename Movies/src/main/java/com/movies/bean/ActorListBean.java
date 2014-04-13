@@ -77,7 +77,6 @@ public class ActorListBean extends PersonBean implements Serializable {
                 setNewPerson(savePerson(getNewPerson()));
                 setCreateUserMode(false);
                 actors = Arrays.asList((Actor)getNewPerson());
-                ((MovieSessionBean) JsfUtil.findBean("movieSessionBean")).updateActors();
                 JsfUtil.addSuccessMessage("Save successfull");
             } else {
                 JsfUtil.addErrorMessage("Fill mandatory fields.");

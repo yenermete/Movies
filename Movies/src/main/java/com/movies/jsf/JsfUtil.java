@@ -32,7 +32,7 @@ public class JsfUtil {
     private static final String QUESTION = "?";
     private static final String AND = "&";
     private static final String REDIRECT = "faces-redirect=true";
-
+    
     public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();
         SelectItem[] items = new SelectItem[size];
@@ -57,17 +57,19 @@ public class JsfUtil {
     }
 
     public static void addErrorMessages(List<String> messages) {
-        messages.stream().forEach((message) -> {
+        for (String message : messages) {
             addErrorMessage(message);
-        });
+        }
     }
 
     public static void addErrorMessage(String msg) {
-        getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
     }
 
     public static void addSuccessMessage(String msg) {
-        getFacesContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg);
+        FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
     }
 
     public static FacesContext getFacesContext() {
@@ -92,9 +94,9 @@ public class JsfUtil {
             throw new IllegalArgumentException("Parameter map can not be empty!");
         } else {
             Set<Entry<String, Object>> set = parameterMap.entrySet();
-            set.stream().forEach((entry) -> {
+            for (Entry<String, Object> entry : set) {
                 builder.append(QUESTION).append(REDIRECT).append(AND).append(entry.getKey()).append(EQUALS).append(entry.getValue());
-            });
+            }
         }
         return builder.toString();
     }
@@ -147,10 +149,5 @@ public class JsfUtil {
             i++;
         }
         return sb.toString();
-    }
-
-    public static <T> T findBean(String beanName) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        return (T) context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", Object.class);
     }
 }

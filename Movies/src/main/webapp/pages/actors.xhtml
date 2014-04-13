@@ -11,7 +11,7 @@
 
     <h:body styleClass="bodyClass">
         <ui:composition>
-            
+            <p:messages id="messages" autoUpdate="true"/>
             <h:form prependId="false" id="form">
 
                 <ui:include src="/pages/template/template.xhtml"/>
@@ -23,7 +23,6 @@
                     <ui:param name="saveMethod" value="saveActor"/>
                     <ui:param name="cancelCreateMethod" value="cancelCreatePerson"/>
                     <ui:param name="initCreateMethod" value="initCreate"/>
-                    <ui:param name="nameLabel" value="Actor Name"/>
                 </ui:include>
 
             </h:form>

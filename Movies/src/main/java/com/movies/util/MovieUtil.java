@@ -6,9 +6,7 @@
 
 package com.movies.util;
 
-import com.movies.entities.Movie;
 import com.movies.mapped.Person;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -23,13 +21,8 @@ public class MovieUtil {
      * @return true if it is ok to save, false otherwise. 
      */
     public static boolean okToSave(Person person){
-        return person != null && StringUtils.isNotBlank(person.getName()) && StringUtils.isNotBlank(person.getSurname())
+        return StringUtils.isNotBlank(person.getName()) && StringUtils.isNotBlank(person.getSurname())
                 && person.getBirthDate() != null && person.getCountry() != null && person.getSex() != null;
-    }
-    
-    public static boolean okToSave(Movie movie){
-        return movie != null && StringUtils.isNotBlank(movie.getTitle()) && CollectionUtils.isNotEmpty(movie.getDirectors())
-                && CollectionUtils.isNotEmpty(movie.getActors()) && CollectionUtils.isNotEmpty(movie.getGenres());
     }
     
 }

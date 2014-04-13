@@ -7,7 +7,6 @@ package com.movies.service;
 
 import com.movies.entities.Movie;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -32,6 +31,4 @@ public interface MovieService {
     public void saveMovie(Movie movie);
 
     public Movie updateMovie(Movie movie);
-    
-    public List<Movie> getMoviesByCriteria(Map<String, Object> map);
 }
