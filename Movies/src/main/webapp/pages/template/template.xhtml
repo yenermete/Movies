@@ -8,30 +8,43 @@
     <br/>
     <h:head>
         <title><ui:insert name="title"/> </title>
+        <h:outputStylesheet name="css/movies.css"/>
         <meta name="viewport" content="width=device-width"/>
     </h:head>
 
     <h:body>
-        <h:outputStylesheet name="css/movies.css"/>
-        
-        <p:ajaxStatus onstart="PF('loading').show();" onsuccess="PF('loading').hide();"/>
+        <table>
+            <tr>
+                <td>
+                    <ui:insert name="header">
+                        <p:ajaxStatus onstart="PF('loading').show();" onsuccess="PF('loading').hide();"/>
 
-        <p:dialog modal="true" widgetVar="loading" header="Loading" draggable="false" closable="false">
-            <p:graphicImage value="/resources/images/ajax-loader.gif" />
-        </p:dialog> 
+                        <p:dialog modal="true" widgetVar="loading" header="Loading" draggable="false" closable="false">
+                            <p:graphicImage value="/resources/images/ajax-loader.gif" />
+                        </p:dialog> 
 
-        <p:messages id="messages" autoUpdate="true"/>
-        <h:panelGrid columns="3" cellpadding="5" cellspacing="5" >
-            <h:outputLink value="#{request.contextPath}/pages/actors.faces" styleClass="anchorClass">
-                <h:outputText value="Actors"/>
-            </h:outputLink>
-            <h:outputLink value="#{request.contextPath}/pages/directors.faces" styleClass="anchorClass">
-                <h:outputText value="Directors"/>
-            </h:outputLink>
-            <h:outputLink value="#{request.contextPath}/pages/movies.faces" styleClass="anchorClass">
-                <h:outputText value="Movies"/>
-            </h:outputLink>
-        </h:panelGrid>
+                        <h:panelGrid columns="3" cellpadding="5" cellspacing="5" >
+                            <h:outputLink value="#{request.contextPath}/pages/actors.faces" styleClass="anchorClass">
+                                <h:outputText value="Actors"/>
+                            </h:outputLink>
+                            <h:outputLink value="#{request.contextPath}/pages/directors.faces" styleClass="anchorClass">
+                                <h:outputText value="Directors"/>
+                            </h:outputLink>
+                            <h:outputLink value="#{request.contextPath}/pages/movies.faces" styleClass="anchorClass">
+                                <h:outputText value="Movies"/>
+                            </h:outputLink>
+                        </h:panelGrid>
+
+                        <p:messages id="messages" autoUpdate="true"/>
+                    </ui:insert>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ui:insert name="content">Empty Content</ui:insert>
+                </td>
+            </tr>
+        </table>
     </h:body>
 </html>
 

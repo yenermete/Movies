@@ -18,14 +18,14 @@
             </p:inputText>
 
             <p:outputLabel value="Country" styleClass="marginRight"/>
-            <p:selectOneMenu value="#{bean.country}">
+            <p:selectOneMenu value="#{bean.country}" styleClass="selectOne">
                 <f:selectItem noSelectionOption="true" itemLabel="Choose"/>
                 <f:selectItems value="#{appBean.countryList}" var="country" itemLabel="#{country.iso3}" itemValue="#{country}"/>
             </p:selectOneMenu>
 
-            <p:commandButton value="Search" actionListener="#{bean[listMethod]}" styleClass="blueButtonClass"
+            <p:commandButton value="Search" actionListener="#{bean[listMethod]}"
                              update="peopleTableId" process="searchFieldsId"/>
-            <p:commandButton value="New" actionListener="#{bean[initCreateMethod]}" styleClass="greenButtonClass"
+            <p:commandButton value="New" actionListener="#{bean[initCreateMethod]}"
                              update="createAndFilterPanelId" process="@this"/>
         </h:panelGrid>
 

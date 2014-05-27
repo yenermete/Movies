@@ -16,7 +16,14 @@ and open the template in the editor.
     text-decoration: none;
 }
 
-.bodyClass { margin-left: 20%;}
+.gridClass td {
+    vertical-align: top;
+}
+
+.bodyClass {
+    margin: 0 auto;
+    width: 1024px;
+}
 
 .ui-panel-titlebar.newPersonPanel,
 .ui-widget-header.newPersonPanel,
@@ -24,48 +31,49 @@ and open the template in the editor.
 .ui-corner-all.newPersonPanel {
     width: 400px;
     margin-bottom: 20px;
+    background: #8280a5;
 }
 
-.ui-button.greenButtonClass,
-.ui-widget.greenButtonClass,
-.ui-button-text.greenButtonClass{
-    background: #c2f7c6;
+.ui-selectManyMenu.selectMany,
+.ui-inputfield.selectMany,
+.ui-widget.selectMany,
+.ui-widget-content.selectMany,
+.ui-corner-all.selectMany {
+    width: 200px;
+    height: 200px;
 }
 
-.ui-button.blueButtonClass,
-.ui-widget.blueButtonClass,
-.ui-button-text.blueButtonClass{
-    background: #b8aff3;
+.ui-panel-titlebar.newMoviePanel,
+.ui-widget-header.newMoviePanel,
+.ui-helper-clearfix.newMoviePanel,
+.ui-corner-all.newMoviePanel {
+    width: 1000px;
+    margin-bottom: 10px;
+    background: #8daca6;
 }
 
-.ui-button.greenButtonClass,
-.ui-button.blueButtonClass,
-.ui-widget.blueButtonClass,
-.ui-widget.greenButtonClass,
-.ui-button-text.greenButtonClass
-.ui-button-text.blueButtonClass{
-    width: 150px;
-    border-color: #AAAAEE;
-    color: #1520b7;
-}
 
 .ui-datatable.borderless table thead tr {
     display: none;
 }
 .ui-datatable.bigTable table {
     width: 1000px;
+    text-align: center;
 }
 
 .ui-datatable.mediumTable table {
     width: 800px;
+    text-align: center;
 }
 
 .ui-datatable.smallTable table {
     width: 400px;
+    text-align: center;
 }
 
 .ui-datatable.miniTable table {
     width: 200px;
+    text-align: center;
 }
 
 .ui-datatable-odd.colorlessRow,
@@ -107,15 +115,20 @@ and open the template in the editor.
     width: 400px;
 }
 
+.ui-state-default.editColumn {
+    width: 10px;
+}
+
 .ui-state-default.smallColumn,
 .ui-state-default.dateColumn,
 .ui-state-default.mediumColumn,
-.ui-state-default.bigColumn {
+.ui-state-default.bigColumn,
+.ui-state-default.editColumn {
     background: #cff5f2;
 }
 
 .ui-outputLabel.marginRight {
-    margin-right: 10%;
+    margin-right: 5%;
 }
 
 .ui-paginator{

@@ -1,29 +1,31 @@
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
     <h:head>
         <title>Directors</title>
     </h:head>
     <h:body styleClass="bodyClass">
-        <h:form prependId="false" id="form">
+        <ui:composition template="/pages/template/template.xhtml">
 
-            <ui:include src="/pages/template/template.xhtml"/>
+                <ui:define name="content">
+                    <h:form prependId="false" id="form">
+                        <ui:include src="person/personList.xhtml">
+                            <ui:param name="bean" value="#{directorListBean}"/>
+                            <ui:param name="tableList" value="#{directorListBean.directors}"/>
+                            <ui:param name="listMethod" value="searchPeople"/>
+                            <ui:param name="saveMethod" value="saveDirector"/>
+                            <ui:param name="cancelCreateMethod" value="cancelCreatePerson"/>
+                            <ui:param name="initCreateMethod" value="initCreate"/>
+                            <ui:param name="nameLabel" value="Director Name"/>
+                        </ui:include>
+                    </h:form>
+                </ui:define>
 
-            <ui:include src="person/personList.xhtml">
-                <ui:param name="bean" value="#{directorListBean}"/>
-                <ui:param name="tableList" value="#{directorListBean.directors}"/>
-                <ui:param name="listMethod" value="searchPeople"/>
-                <ui:param name="saveMethod" value="saveDirector"/>
-                <ui:param name="cancelCreateMethod" value="cancelCreatePerson"/>
-                <ui:param name="initCreateMethod" value="initCreate"/>
-                <ui:param name="nameLabel" value="Director Name"/>
-            </ui:include>
-
-        </h:form>
+            
+        </ui:composition>
     </h:body>
 
 </html>
